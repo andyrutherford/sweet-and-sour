@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Cupcake',
     image: '/images/cupcake.jpg',
     description: 'A tasty cupcake',
@@ -12,7 +11,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'Ice Cream Drumstick',
     image: '/images/icecream.jpg',
     description: 'Strawberry flavored ice cream drumstick',
@@ -24,7 +22,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'Lollipop',
     image: '/images/lollipop.jpg',
     description: 'Lollipop of assorted colors and flavors',
@@ -36,7 +33,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'M&Ms',
     image: '/images/mms.jpg',
     description: 'Americas favorite chocolate candy (price is per pound)',
@@ -48,7 +44,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '5',
     name: 'Apple cinnamon muffin',
     image: '/images/muffin.jpg',
     description: 'Tasty apple cinnamon flavored muffin topped with nuts',
@@ -60,7 +55,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '6',
     name: 'Sour Worms',
     image: '/images/worms.jpg',
     description: 'Super sour candy worms (price per pound)',
