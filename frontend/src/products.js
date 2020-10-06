@@ -44,7 +44,7 @@ const products = [
     category: 'Candy',
     price: 2.99,
     countInStock: 11,
-    rating: 5,
+    rating: 0.5,
     numReviews: 12,
   },
   {
