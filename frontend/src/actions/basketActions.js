@@ -21,3 +21,12 @@ export const addToBasket = (id, quantity) => async (dispatch, getState) => {
     JSON.stringify(getState().basket.basketItems)
   );
 };
+
+export const removeFromBasket = (id) => async (dispatch, getState) => {
+  dispatch({ type: BASKET_REMOVE_ITEM, payload: id });
+
+  localStorage.setItem(
+    'basketItems',
+    JSON.stringify(getState().basket.basketItems)
+  );
+};

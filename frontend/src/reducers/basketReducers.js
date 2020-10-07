@@ -20,6 +20,12 @@ export const basketReducer = (state = { basketItems: [] }, action) => {
           basketItems: [...state.basketItems, item],
         };
       }
+    case BASKET_REMOVE_ITEM:
+      const id = action.payload;
+      return {
+        ...state,
+        basketItems: state.basketItems.filter((i) => i.product !== id),
+      };
     default:
       return state;
   }

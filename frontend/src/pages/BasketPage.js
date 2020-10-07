@@ -10,7 +10,7 @@ import {
   Button,
   Card,
 } from 'react-bootstrap';
-import { addToBasket } from '../actions/basketActions';
+import { addToBasket, removeFromBasket } from '../actions/basketActions';
 import Message from '../components/Message';
 
 const BasketPage = ({ match, location, history }) => {
@@ -27,7 +27,9 @@ const BasketPage = ({ match, location, history }) => {
     }
   }, [productId, dispatch, quantity]);
 
-  const removeFromBasketHandler = (id) => {};
+  const removeFromBasketHandler = (id) => {
+    dispatch(removeFromBasket(id));
+  };
 
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
