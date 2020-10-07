@@ -5,12 +5,17 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 connectDB();
 const app = express();
 
+// Body parser - accept json data in requestbody
+app.use(express.json());
+
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 // Middlewares
 app.use(notFound);
