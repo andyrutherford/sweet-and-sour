@@ -5,7 +5,7 @@ export const basketReducer = (state = { basketItems: [] }, action) => {
     case BASKET_ADD_ITEM:
       const item = action.payload;
       const itemExists = state.basketItems.find(
-        (x) => x.produdct === item.product
+        (x) => x.product === item.product
       );
       if (itemExists) {
         return {
