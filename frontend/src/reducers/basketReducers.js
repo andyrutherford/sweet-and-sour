@@ -1,23 +1,23 @@
 import { BASKET_ADD_ITEM, BASKET_REMOVE_ITEM } from '../actions/actionTypes';
 
-export const basketReducer = (state = { cartItems: [] }, action) => {
+export const basketReducer = (state = { basketItems: [] }, action) => {
   switch (action.type) {
     case BASKET_ADD_ITEM:
       const item = action.payload;
-      const itemExists = state.cartItems.find(
+      const itemExists = state.basketItems.find(
         (x) => x.produdct === item.product
       );
       if (itemExists) {
         return {
           ...state,
-          cartItems: state.cartItems.map((i) =>
+          basketItems: state.basketItems.map((i) =>
             i.product === itemExists.product ? item : i
           ),
         };
       } else {
         return {
           ...state,
-          cartItems: [...state.cartItems, item],
+          basketItems: [...state.basketItems, item],
         };
       }
     default:
