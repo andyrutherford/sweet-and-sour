@@ -7,18 +7,21 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
-import { login } from '../actions/userActions';
+import { signup } from '../actions/userActions';
 
-const LoginPage = ({ location, history }) => {
+const SignupPage = ({ location, history }) => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const userSignup = useSelector((state) => state.userSignup);
+  const { loading, error, userInfo } = userSignup;
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState(null);
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  // If user is logged in, redirect to hom
+  // If user is logged in, redirect to home
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
@@ -27,29 +30,41 @@ const LoginPage = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match.');
+    } else {
+      dispatch(signup(name, email, password));
+    }
   };
 
   const testUserHandler = () => {
-    setEmail('sherry@gmail.com');
+    setName('test user');
+    setEmail((Math.random() * 1000000).toFixed(0).toString() + '@gmail.com');
     setPassword('123456');
-
-    setTimeout(() => {
-      dispatch(login('sherry@gmail.com', '123456'));
-    }, 1000);
+    setConfirmPassword('123456');
   };
 
   return (
     <FormContainer>
       <h1>
-        Log in{' '}
+        Sign up{' '}
         <Button variant='primary' onClick={testUserHandler}>
           Test user
         </Button>
       </h1>
+      {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId='name'>
+          <Form.Label>Name Address</Form.Label>
+          <Form.Control
+            type='name'
+            placeholder=''
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -68,15 +83,24 @@ const LoginPage = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        <Form.Group controlId='confirmPassword'>
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type='password'
+            placeholder=''
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Button type='submit' variant='primary'>
-          Log in
+          Sign up
         </Button>
       </Form>
       <Row className='py-3'>
         <Col>
-          New customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/signup'}>
-            Sign up
+          Have an account?{' '}
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+            Log in
           </Link>
         </Col>
       </Row>
@@ -84,4 +108,4 @@ const LoginPage = ({ location, history }) => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
