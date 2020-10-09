@@ -1,6 +1,13 @@
-import { BASKET_ADD_ITEM, BASKET_REMOVE_ITEM } from '../actions/actionTypes';
+import {
+  BASKET_ADD_ITEM,
+  BASKET_REMOVE_ITEM,
+  BASKET_SAVE_SHIPPING_ADDRESS,
+} from '../actions/actionTypes';
 
-export const basketReducer = (state = { basketItems: [] }, action) => {
+export const basketReducer = (
+  state = { basketItems: [], shippingAddress: {} },
+  action
+) => {
   switch (action.type) {
     case BASKET_ADD_ITEM:
       const item = action.payload;
@@ -25,6 +32,11 @@ export const basketReducer = (state = { basketItems: [] }, action) => {
       return {
         ...state,
         basketItems: state.basketItems.filter((i) => i.product !== id),
+      };
+    case BASKET_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     default:
       return state;
