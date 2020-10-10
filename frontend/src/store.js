@@ -13,6 +13,8 @@ import {
   userUpdateProfileReducer,
 } from './reducers/userReducers';
 
+import { orderCreateReducer } from './reducers/orderReducers';
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -21,6 +23,7 @@ const reducer = combineReducers({
   userSignup: userSignupReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  orderCreate: orderCreateReducer,
 });
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')

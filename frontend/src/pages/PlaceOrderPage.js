@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutProcess from '../components/CheckoutProcess';
 import formatPrice from '../utils/formatPrice';
+import { createOrder } from '../actions/orderActions';
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({ history }) => {
+  const dispatch = useDispatch();
   const basket = useSelector((state) => state.basket);
 
   basket.itemsPrice = formatPrice(
@@ -26,8 +28,34 @@ const PlaceOrderPage = () => {
     Number(basket.shippingPrice) +
     Number(basket.taxPrice);
 
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    console.log(order);
+    // console.log(order._id);
+  }, [order]);
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+    //eslint-disable-next-line
+  }, [success, history]);
+
   const placeOrderHandler = (e) => {
     e.preventDefault();
+    dispatch(
+      createOrder({
+        orderItems: basket.basketItems,
+        shippingAddress: basket.shippingAddress,
+        paymentMethod: basket.paymentMethod,
+        itemsPrice: basket.itemsPrice,
+        shippingPrice: basket.shippingPrice,
+        taxPrice: basket.taxPrice,
+        totalPrice: basket.totalPrice,
+      })
+    );
   };
 
   return (
@@ -115,6 +143,9 @@ const PlaceOrderPage = () => {
                   <Col>Total</Col>
                   <Col>${basket.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
