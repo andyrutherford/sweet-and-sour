@@ -27,7 +27,7 @@ const OrderPage = ({ match }) => {
     if (!order || order._id !== orderId) {
       dispatch(getOrderDetails(orderId));
     }
-  }, [order, orderId]);
+  }, [dispatch, order, orderId]);
 
   return loading ? (
     <Loader />
@@ -47,7 +47,11 @@ const OrderPage = ({ match }) => {
               </p>{' '}
               <p>
                 <strong>Email: </strong>
-                <a href={`mailto:${order.user.email}`} target='_blank'>
+                <a
+                  href={`mailto:${order.user.email}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   {order.user.email}
                 </a>
               </p>
