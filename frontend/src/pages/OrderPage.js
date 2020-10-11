@@ -24,8 +24,10 @@ const OrderPage = ({ match }) => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [order, orderId]);
 
   return loading ? (
     <Loader />
@@ -138,9 +140,6 @@ const OrderPage = ({ match }) => {
                   <Col>Total</Col>
                   <Col>${order.totalPrice}</Col>
                 </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
             </ListGroup>
           </Card>

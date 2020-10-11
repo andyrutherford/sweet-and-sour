@@ -42,12 +42,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
 const getOrderById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // Validate objectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(400);
-    throw new Error('Invalid order ID.');
-  }
-
   let order = await Order.findById(id).populate('user', 'name email');
 
   if (!order) {
