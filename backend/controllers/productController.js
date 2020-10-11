@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 
@@ -13,6 +14,11 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route       GET /api/products/:id
 // @access      PUBLIC
 const getProductById = asyncHandler(async (req, res) => {
+  // Validate objectId
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400);
+    throw new Error('Invalid product ID.');
+  }
   const product = await Product.findById(req.params.id);
   if (product) {
     res.json(product);

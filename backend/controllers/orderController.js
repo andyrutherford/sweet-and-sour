@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 
@@ -18,7 +19,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
   if (orderItems && orderItems.length === 0) {
     res.status(400);
     throw new Error('No order items');
-    return;
   } else {
     const order = new Order({
       user: req.user._id,
@@ -41,6 +41,12 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @access      PRIVATE
 const getOrderById = asyncHandler(async (req, res) => {
   const { id } = req.params;
+
+  // Validate objectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Invalid order ID.');
+  }
 
   let order = await Order.findById(id).populate('user', 'name email');
 
