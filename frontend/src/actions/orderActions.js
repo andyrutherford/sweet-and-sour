@@ -12,6 +12,7 @@ import {
   ORDER_USER_LIST_REQUEST,
   ORDER_USER_LIST_SUCCESS,
   ORDER_USER_LIST_FAIL,
+  BASKET_REMOVE_ALL_ITEMS,
 } from './actionTypes';
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -37,6 +38,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
+    dispatch({ type: BASKET_REMOVE_ALL_ITEMS });
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,

@@ -4,6 +4,7 @@ import {
   BASKET_REMOVE_ITEM,
   BASKET_SAVE_SHIPPING_ADDRESS,
   BASKET_SAVE_PAYMENT_METHOD,
+  BASKET_REMOVE_ALL_ITEMS,
 } from './actionTypes';
 
 export const addToBasket = (id, quantity) => async (dispatch, getState) => {
@@ -34,6 +35,13 @@ export const removeFromBasket = (id) => async (dispatch, getState) => {
     'basketItems',
     JSON.stringify(getState().basket.basketItems)
   );
+};
+
+export const resetBasket = () => (dispatch) => {
+  dispatch({ type: BASKET_REMOVE_ALL_ITEMS });
+
+  //   Remove all basket items from local storage
+  localStorage.removeItem('basketItems');
 };
 
 export const saveShippingAddress = (data) => async (dispatch) => {

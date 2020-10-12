@@ -1,6 +1,7 @@
 import {
   BASKET_ADD_ITEM,
   BASKET_REMOVE_ITEM,
+  BASKET_REMOVE_ALL_ITEMS,
   BASKET_SAVE_SHIPPING_ADDRESS,
   BASKET_SAVE_PAYMENT_METHOD,
 } from '../actions/actionTypes';
@@ -34,6 +35,8 @@ export const basketReducer = (
         ...state,
         basketItems: state.basketItems.filter((i) => i.product !== id),
       };
+    case BASKET_REMOVE_ALL_ITEMS:
+      return { ...state, basketItems: [] };
     case BASKET_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,
