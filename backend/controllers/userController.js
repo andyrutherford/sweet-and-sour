@@ -120,8 +120,48 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('User does not exist.');
   } else {
-    userToDelete.remove();
-    res.json({ success: true });
+    await userToDelete.remove();
+    res.json({ success: true, message: 'User deleted.' });
+  }
+});
+
+// @desc        Get user by id
+// @route       GET /api/users/:id
+// @access      ADMIN
+const getUserById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  let user = await User.findById(id).select('-password');
+  if (!user) {
+    res.status(404);
+    throw new Error('User does not exist.');
+  } else {
+    res.json(user);
+  }
+});
+
+// @desc        Update user
+// @route       PUT /api/users/:id
+// @access      ADMIN
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  console.log(req.body.hasOwnProperty('isAdmin'));
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.hasOwnProperty('isAdmin')
+      ? req.body.isAdmin
+      : user.isAdmin;
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found.');
   }
 });
 
@@ -130,6 +170,8 @@ export {
   getUserProfile,
   createUser,
   updateUserProfile,
+  updateUser,
   getAllUsers,
+  getUserById,
   deleteUser,
 };
