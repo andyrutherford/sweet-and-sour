@@ -15,6 +15,9 @@ import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
 
+// Admin pages
+import UserListPage from './pages/UserListPage';
+
 const App = () => {
   return (
     <Router>
@@ -33,6 +36,7 @@ const App = () => {
           <Route path='/order/:id' component={OrderPage} />
           <Route path='/product/:id' component={ProductPage} />
           <Route path='/basket/:id?' component={BasketPage} />
+          <Route path='/admin/users' component={UserListPage} />
         </Container>
       </main>
       <Footer />
