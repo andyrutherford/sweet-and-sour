@@ -3,6 +3,9 @@ import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
+  USER_LIST_DELETE_FAIL,
+  USER_LIST_DELETE_REQUEST,
+  USER_LIST_DELETE_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
@@ -209,3 +212,39 @@ export const listUsers = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const deleteUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`/api/users/delete/${userId}`, config);
+
+    dispatch({
+      type: USER_LIST_DELETE_SUCCESS,
+      payload: userId,
+    });
+    console.log(data);
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// /api/users/delete/:id

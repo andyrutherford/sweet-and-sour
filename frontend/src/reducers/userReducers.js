@@ -16,6 +16,9 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
+  USER_LIST_DELETE_REQUEST,
+  USER_LIST_DELETE_SUCCESS,
+  USER_LIST_DELETE_FAIL,
 } from '../actions/actionTypes';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -83,6 +86,16 @@ export const userListReducer = (state = { users: [] }, action) => {
       return { loading: false, users: action.payload };
     case USER_LIST_FAIL:
       return { loading: false, error: action.payload };
+    case USER_LIST_DELETE_REQUEST:
+      return { ...state, loading: true };
+    case USER_LIST_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: state.users.filter((user) => user._id !== action.payload),
+      };
+    case USER_LIST_DELETE_FAIL:
+      return { ...state, error: action.payload };
     default:
       return state;
   }
