@@ -252,7 +252,6 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
 };
 
 export const updateUser = (id, updates) => async (dispatch, getState) => {
-  console.log('update');
   try {
     dispatch({
       type: USER_UPDATE_REQUEST,

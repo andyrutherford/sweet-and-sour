@@ -43,7 +43,28 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc        Update product information
+// @desc        Create a product
+// @route       POST /api/products/
+// @access      PRIVATE
+const createProduct = asyncHandler(async (req, res) => {
+  const product = new Product({
+    name: 'Sample',
+    price: 0,
+    user: req.user._id,
+    image: '/images/sample.jpg',
+    brand: 'Sample brand',
+    category: 'Sample category',
+    countInStock: 0,
+    numReviews: 0,
+    description: 'Sample description',
+  });
+
+  const newProduct = await product.save();
+  res.status(201);
+  res.json(newProduct);
+});
+
+// @desc        Update product
 // @route       PUT /api/products/:id
 // @access      PRIVATE
 const updateProduct = asyncHandler(async (req, res) => {
@@ -94,4 +115,10 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, getProductById, deleteProduct, updateProduct };
+export {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+};

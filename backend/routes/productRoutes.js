@@ -4,6 +4,7 @@ import {
   getProducts,
   getProductById,
   deleteProduct,
+  createProduct,
   updateProduct,
 } from '../controllers/productController.js';
 import { adminOnly } from '../middleware/adminMiddleware.js';
@@ -16,6 +17,7 @@ router.route('/').get(getProducts);
 router.route('/:id').get(validateId, getProductById);
 
 // Admin routes
+router.route('/').post(protect, adminOnly, createProduct);
 router.route('/:id').put(protect, adminOnly, validateId, updateProduct);
 router.route('/:id').delete(protect, adminOnly, validateId, deleteProduct);
 
