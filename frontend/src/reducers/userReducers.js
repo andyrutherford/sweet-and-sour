@@ -23,6 +23,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  USER_DETAILS_RESET,
 } from '../actions/actionTypes';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -62,7 +63,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       return { loading: false, user: action.payload };
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
-    case 'USER_DETAILS_RESET':
+    case USER_DETAILS_RESET:
       return { user: {} };
     default:
       return state;
@@ -101,7 +102,7 @@ export const userListReducer = (state = { users: [] }, action) => {
         users: state.users.filter((user) => user._id !== action.payload),
       };
     case USER_LIST_DELETE_FAIL:
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, loading: false };
     default:
       return state;
   }

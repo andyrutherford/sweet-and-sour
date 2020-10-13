@@ -234,13 +234,12 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/api/users/${userId}`, config);
+    await axios.delete(`/api/users/${userId}`, config);
 
     dispatch({
       type: USER_LIST_DELETE_SUCCESS,
       payload: userId,
     });
-    console.log(data);
   } catch (error) {
     dispatch({
       type: USER_LIST_DELETE_FAIL,

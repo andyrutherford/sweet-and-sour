@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listProducts } from '../actions/productActions';
+import { deleteProduct, listProducts } from '../actions/productActions';
 
 const ProductListPage = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ProductListPage = ({ history, match }) => {
 
   const deleteProductHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      //   Delete product
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -42,11 +42,10 @@ const ProductListPage = ({ history, match }) => {
             <i className='fas fa-plus'></i> New Product
           </Button>
         </Col>
-      </Row>
+      </Row>{' '}
+      {error && <Message variant='danger'>{error}</Message>}
       {loading ? (
         <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
       ) : (
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
