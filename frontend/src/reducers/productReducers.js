@@ -16,6 +16,8 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_DETAILS_RESET,
+  PRODUCT_DELETE_RESET,
 } from '../actions/actionTypes';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -53,6 +55,8 @@ export const productDetailsReducer = (
       };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_DETAILS_RESET:
+      return { product: { reviews: [] } };
     default:
       return state;
   }
@@ -81,6 +85,8 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_DELETE_RESET:
+      return {};
     default:
       return state;
   }

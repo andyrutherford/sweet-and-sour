@@ -11,6 +11,11 @@ import {
   createProduct,
 } from '../actions/productActions';
 
+import {
+  PRODUCT_DELETE_RESET,
+  PRODUCT_CREATE_RESET,
+} from '../actions/actionTypes';
+
 const ProductListPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
@@ -42,11 +47,18 @@ const ProductListPage = ({ history, match }) => {
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${newProduct._id}/edit`);
+      history.push(`/admin/products/${newProduct._id}/edit`);
     } else {
       dispatch(listProducts());
     }
   }, [dispatch, history, userInfo, newProduct, successCreate, successDelete]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    };
+  }, []);
 
   const deleteProductHandler = (id) => {
     if (window.confirm('Are you sure?')) {
