@@ -14,6 +14,7 @@ import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
+import UserEditPage from './pages/UserEditPage';
 
 // Admin pages
 import UserListPage from './pages/UserListPage';
@@ -36,7 +37,8 @@ const App = () => {
           <Route path='/order/:id' component={OrderPage} />
           <Route path='/product/:id' component={ProductPage} />
           <Route path='/basket/:id?' component={BasketPage} />
-          <Route path='/admin/users' component={UserListPage} />
+          <Route path='/admin/users' exact component={UserListPage} />
+          <Route path='/admin/users/:id/edit' component={UserEditPage} />
         </Container>
       </main>
       <Footer />
