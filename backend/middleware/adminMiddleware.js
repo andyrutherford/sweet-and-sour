@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 const adminOnly = (req, res, next) => {
   if (req.user.isAdmin) {
     next();

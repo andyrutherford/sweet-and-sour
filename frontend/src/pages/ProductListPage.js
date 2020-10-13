@@ -5,23 +5,48 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { deleteProduct, listProducts } from '../actions/productActions';
+import {
+  deleteProduct,
+  listProducts,
+  createProduct,
+} from '../actions/productActions';
 
 const ProductListPage = ({ history, match }) => {
   const dispatch = useDispatch();
+
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading: loadingList, error: errorList, products } = productList;
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    product: newProduct,
+    success: successCreate,
+  } = productCreate;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: 'PRODUCT_LIST_RESET' });
+    if (!userInfo.isAdmin) {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+
+    if (successCreate) {
+      history.push(`/admin/product/${newProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [dispatch, history, userInfo, newProduct, successCreate, successDelete]);
 
   const deleteProductHandler = (id) => {
     if (window.confirm('Are you sure?')) {
@@ -29,7 +54,9 @@ const ProductListPage = ({ history, match }) => {
     }
   };
 
-  const createProductHandler = (product) => {};
+  const createProductHandler = () => {
+    dispatch(createProduct());
+  };
 
   return (
     <>
@@ -42,9 +69,17 @@ const ProductListPage = ({ history, match }) => {
             <i className='fas fa-plus'></i> New Product
           </Button>
         </Col>
-      </Row>{' '}
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading ? (
+      </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && (
+        <Message variant='danger'>Delete product error: {errorDelete}</Message>
+      )}
+      {loadingCreate && <Loader />}
+      {errorCreate && (
+        <Message variant='danger'>Create product error: {errorCreate}</Message>
+      )}
+      {errorList && <Message variant='danger'>{errorList}</Message>}
+      {loadingList ? (
         <Loader />
       ) : (
         <Table striped bordered hover responsive className='table-sm'>

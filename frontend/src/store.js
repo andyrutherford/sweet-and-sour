@@ -4,6 +4,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   productListReducer,
   productDetailsReducer,
+  productDeleteReducer,
+  productUpdateReducer,
+  productCreateReducer,
 } from './reducers/productReducers';
 import { basketReducer } from './reducers/basketReducers';
 import {
@@ -27,6 +30,9 @@ import { USER_LOGOUT } from './actions/actionTypes';
 const appReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
   basket: basketReducer,
   userLogin: userLoginReducer,
   userSignup: userSignupReducer,
