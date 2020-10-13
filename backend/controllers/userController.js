@@ -148,7 +148,8 @@ const updateUser = asyncHandler(async (req, res) => {
     // An admin is not able to change their admin status
     if (
       req.params.id.toString() === req.user._id.toString() &&
-      req.body.hasOwnProperty('isAdmin')
+      req.body.hasOwnProperty('isAdmin') &&
+      req.body.isAdmin !== user.isAdmin
     ) {
       res.status(401);
       throw new Error('You are not authorized to change your Admin status.');
