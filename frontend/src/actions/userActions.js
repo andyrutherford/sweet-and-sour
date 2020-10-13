@@ -65,6 +65,8 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: USER_LOGOUT,
   });
+  // Refresh page
+  window.location.href = '/';
 };
 
 export const signup = (name, email, password) => async (dispatch) => {

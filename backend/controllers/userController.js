@@ -145,6 +145,14 @@ const getUserById = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   if (user) {
+    // An admin is not able to change their admin status
+    if (
+      req.params.id.toString() === req.user._id.toString() &&
+      req.body.hasOwnProperty('isAdmin')
+    ) {
+      res.status(401);
+      throw new Error('You are not authorized to change your Admin status.');
+    }
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.isAdmin = req.body.hasOwnProperty('isAdmin')
@@ -152,7 +160,6 @@ const updateUser = asyncHandler(async (req, res) => {
       : user.isAdmin;
 
     const updatedUser = await user.save();
-    console.log(updatedUser);
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,

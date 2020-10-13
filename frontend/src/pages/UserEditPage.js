@@ -8,14 +8,17 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { getUserDetails, updateUser } from '../actions/userActions';
+import { USER_UPDATE_RESET, USER_DETAILS_RESET } from '../actions/actionTypes';
 
-const UserEditPage = ({ match, history }) => {
+const UserEditPage = ({ match }) => {
   const userId = match.params.id;
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
   const { loading: detailsLoading, error: detailsError, user } = userDetails;
   const userUpdate = useSelector((state) => state.userUpdate);
   const { loading: updateLoading, error: updateError, success } = userUpdate;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -30,6 +33,13 @@ const UserEditPage = ({ match, history }) => {
       setIsAdmin(user.isAdmin);
     }
   }, [user, userId, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: USER_UPDATE_RESET });
+      dispatch({ type: USER_DETAILS_RESET });
+    };
+  }, [dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -82,8 +92,14 @@ const UserEditPage = ({ match, history }) => {
                 type='checkbox'
                 label='Is admin'
                 checked={isAdmin}
+                disabled={userId === userInfo._id}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
+              {userId === userInfo._id && (
+                <Form.Text className='text-muted'>
+                  You are not authorized to change your own Admin status.
+                </Form.Text>
+              )}
             </Form.Group>
 
             <Button type='submit' variant='primary'>
