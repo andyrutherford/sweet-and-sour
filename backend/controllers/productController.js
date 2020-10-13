@@ -39,8 +39,59 @@ const deleteProduct = asyncHandler(async (req, res) => {
     throw new Error('Product does not exist.');
   } else {
     await productToDelete.remove();
-    res.json({ success: true, message: 'Product deleted.' });
+    res.json({ message: 'Product deleted.' });
   }
 });
 
-export { getProducts, getProductById, deleteProduct };
+// @desc        Update product information
+// @route       PUT /api/products/:id
+// @access      PRIVATE
+const updateProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (req.body.price && req.body.price < 0) {
+    res.status(422);
+    throw new Error('The price cannot be a negative number.');
+  }
+  if (req.body.countInStock && req.body.countInStock < 0) {
+    res.status(422);
+    throw new Error('The count in stock cannot be a negative number.');
+  }
+  if (req.body.price && typeof req.body.price !== typeof 1) {
+    res.status(422);
+    throw new Error('The price must be a number.');
+  }
+  if (req.body.countInStock && typeof req.body.countInStock !== typeof 1) {
+    res.status(422);
+    throw new Error('The count in stock must be a number.');
+  }
+
+  if (product) {
+    product.name = req.body.name || product.name;
+    product.image = req.body.image || product.image;
+    product.brand = req.body.brand || product.brand;
+    product.category = req.body.category || product.category;
+    product.description = req.body.description || product.description;
+    product.price =
+      (Math.round(req.body.price * 100) / 100).toFixed(2) || product.price;
+    product.countInStock =
+      Math.floor(req.body.countInStock) || product.countInStock;
+
+    const updatedProduct = await product.save();
+    res.json({
+      _id: updatedProduct._id,
+      name: updatedProduct.name,
+      image: updatedProduct.image,
+      brand: updatedProduct.brand,
+      category: updatedProduct.category,
+      description: updatedProduct.description,
+      price: updatedProduct.price,
+      countInStock: updatedProduct.countInStock,
+    });
+  } else {
+    res.status(404);
+    throw new Error('Product not found.');
+  }
+});
+
+export { getProducts, getProductById, deleteProduct, updateProduct };
