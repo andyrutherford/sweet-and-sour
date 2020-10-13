@@ -144,7 +144,6 @@ const getUserById = asyncHandler(async (req, res) => {
 // @access      ADMIN
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  console.log(req.body.hasOwnProperty('isAdmin'));
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
@@ -153,6 +152,7 @@ const updateUser = asyncHandler(async (req, res) => {
       : user.isAdmin;
 
     const updatedUser = await user.save();
+    console.log(updatedUser);
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,

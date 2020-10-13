@@ -7,13 +7,15 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUser } from '../actions/userActions';
 
 const UserEditPage = ({ match, history }) => {
   const userId = match.params.id;
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { loading: detailsLoading, error: detailsError, user } = userDetails;
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { loading: updateLoading, error: updateError, success } = userUpdate;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -27,14 +29,14 @@ const UserEditPage = ({ match, history }) => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [user, dispatch]);
+  }, [user, userId, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (name === '' || email === '') {
-      console.log(name, email);
-
       return setMessage('The name and email cannot be blank.');
+    } else {
+      dispatch(updateUser(userId, { name, email, isAdmin }));
     }
   };
 
@@ -45,15 +47,20 @@ const UserEditPage = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit User </h1>
-        {loading ? (
+        {message && <Message variant='danger'>{message}</Message>}
+        {success && (
+          <Message variant='success'>User updated successfully.</Message>
+        )}
+        {updateLoading || detailsLoading ? (
           <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
+        ) : detailsError ? (
+          <Message variant='danger'>{detailsError}</Message>
+        ) : updateError ? (
+          <Message variant='danger'>{updateError}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
-              {message && <Message variant='danger'>{message}</Message>}
               <Form.Control
                 type='name'
                 placeholder=''
