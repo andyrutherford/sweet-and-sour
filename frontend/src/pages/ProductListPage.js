@@ -58,7 +58,7 @@ const ProductListPage = ({ history, match }) => {
       dispatch({ type: PRODUCT_CREATE_RESET });
       dispatch({ type: PRODUCT_DELETE_RESET });
     };
-  }, []);
+  }, [dispatch]);
 
   const deleteProductHandler = (id) => {
     if (window.confirm('Are you sure?')) {

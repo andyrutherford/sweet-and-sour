@@ -7,9 +7,6 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
-  PRODUCT_LIST_DELETE_REQUEST,
-  PRODUCT_LIST_DELETE_SUCCESS,
-  PRODUCT_LIST_DELETE_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
@@ -58,6 +55,7 @@ export const listProductDetails = (id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, updates) => async (dispatch, getState) => {
+  console.log('update');
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,

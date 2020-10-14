@@ -8,12 +8,9 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { listProductDetails, updateProduct } from '../actions/productActions';
-import {
-  PRODUCT_CREATE_RESET,
-  PRODUCT_DETAILS_RESET,
-} from '../actions/actionTypes';
+import { PRODUCT_UPDATE_RESET } from '../actions/actionTypes';
 
-const ProductEditPage = ({ match }) => {
+const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
 
   const dispatch = useDispatch();
@@ -23,6 +20,9 @@ const ProductEditPage = ({ match }) => {
     error: detailsError,
     product,
   } = productDetails;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { error: updateError, success: updateSuccess } = productUpdate;
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -34,6 +34,12 @@ const ProductEditPage = ({ match }) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
+    if (updateSuccess) {
+      setTimeout(() => {
+        history.push('/admin/products');
+      }, 3000);
+    }
+
     if (!product.name || product._id !== productId) {
       dispatch(listProductDetails(productId));
     } else {
@@ -45,17 +51,40 @@ const ProductEditPage = ({ match }) => {
       setCountInStock(product.countInStock);
       setDescription(product.description);
     }
-  }, [product, productId, dispatch]);
+  }, [product, productId, dispatch, updateSuccess, history]);
 
+  // Cleanup
   useEffect(() => {
     return () => {
-      //   dispatch({ type: PRODUCT_CREATE_RESET });
-      //   dispatch({ type: PRODUCT_DETAILS_RESET });
+      dispatch({ type: PRODUCT_UPDATE_RESET });
     };
   }, [dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setMessage('');
+    if (
+      name === '' ||
+      price.length === 0 ||
+      image === '' ||
+      brand === '' ||
+      category === '' ||
+      description === '' ||
+      countInStock.length === 0
+    ) {
+      setMessage('All form fields are required.');
+    }
+    dispatch(
+      updateProduct(productId, {
+        name,
+        price: Number(price),
+        image,
+        brand,
+        category,
+        description,
+        countInStock: Number(countInStock),
+      })
+    );
   };
 
   return (
@@ -65,7 +94,11 @@ const ProductEditPage = ({ match }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
-
+        {message && <Message variant='danger'>{message}</Message>}
+        {updateError && <Message variant='danger'>{updateError}</Message>}
+        {updateSuccess && (
+          <Message variant='success'>Product saved successfully.</Message>
+        )}
         {detailsLoading ? (
           <Loader />
         ) : detailsError ? (

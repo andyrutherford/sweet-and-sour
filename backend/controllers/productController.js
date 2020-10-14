@@ -69,7 +69,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access      PRIVATE
 const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-
+  console.log(req.body);
   if (req.body.price && req.body.price < 0) {
     res.status(422);
     throw new Error('The price cannot be a negative number.');
@@ -86,15 +86,16 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.status(422);
     throw new Error('The count in stock must be a number.');
   }
-
+  console.log(product.price);
   if (product) {
     product.name = req.body.name || product.name;
     product.image = req.body.image || product.image;
     product.brand = req.body.brand || product.brand;
     product.category = req.body.category || product.category;
     product.description = req.body.description || product.description;
-    product.price =
-      (Math.round(req.body.price * 100) / 100).toFixed(2) || product.price;
+    product.price = req.body.price
+      ? (Math.round(req.body.price * 100) / 100).toFixed(2)
+      : product.price;
     product.countInStock =
       Math.floor(req.body.countInStock) || product.countInStock;
 
