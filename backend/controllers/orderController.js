@@ -59,7 +59,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc        Mark order as paid
-// @route       POST /api/orders/:id/pay
+// @route       PUT /api/orders/:id/pay
 // @access      PRIVATE
 const markOrderPaid = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -87,6 +87,27 @@ const markOrderPaid = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc        Mark order as delivered
+// @route       PUT /api/orders/:id/deliver
+// @access      ADMIN
+const markOrderDelivered = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  let order = await Order.findById(id);
+
+  if (!order) {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+
+  order.isDelivered = true;
+  order.deliveredAt = Date.now();
+
+  const updatedOrder = await order.save();
+
+  return res.json(updatedOrder);
+});
+
 // @desc        Get logged in user orders
 // @route       GET /api/orders/my-orders
 // @access      PRIVATE
@@ -107,6 +128,7 @@ export {
   addOrderItems,
   getOrderById,
   markOrderPaid,
+  markOrderDelivered,
   getMyOrders,
   getAllOrders,
 };
