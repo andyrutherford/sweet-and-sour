@@ -99,7 +99,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @route       GET /api/orders/
 // @access      ADMIN
 const getAllOrders = asyncHandler(async (req, res) => {
-  let orders = await Order.find({});
+  let orders = await Order.find({}).populate('user', 'id name email');
   res.json(orders);
 });
 

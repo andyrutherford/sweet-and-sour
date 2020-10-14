@@ -23,6 +23,7 @@ import {
   orderDetailsReducer,
   orderPayReducer,
   orderUserListReducer,
+  orderListReducer,
 } from './reducers/orderReducers';
 
 import { USER_LOGOUT } from './actions/actionTypes';
@@ -44,6 +45,7 @@ const appReducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderUserList: orderUserListReducer,
+  orderList: orderListReducer,
 });
 
 const rootReducer = (state, action) => {
