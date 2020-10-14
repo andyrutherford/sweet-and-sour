@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
+import imageUpload from '../utils/imageUpload';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import {
   PRODUCT_UPDATE_RESET,
@@ -35,6 +36,7 @@ const ProductEditPage = ({ match, history }) => {
   const [description, setDescription] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [message, setMessage] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (updateSuccess) {
@@ -63,6 +65,22 @@ const ProductEditPage = ({ match, history }) => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
     };
   }, [dispatch]);
+
+  const uploadFileHandler = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    imageUpload(formData)
+      .then((res) => {
+        setImage(res);
+        setUploading(false);
+      })
+      .catch((e) => {
+        setUploading(false);
+        setMessage(e.message);
+      });
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -135,6 +153,14 @@ const ProductEditPage = ({ match, history }) => {
                 value={image}
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={uploadFileHandler}
+              >
+                {uploading && <Loader />}
+              </Form.File>
             </Form.Group>
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>

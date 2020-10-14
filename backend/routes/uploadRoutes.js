@@ -16,25 +16,33 @@ const storage = multer.diskStorage({
   },
 });
 
-function checkFileType(file, cb) {
+function checkFileType(req, file, cb) {
   const filetypes = /jpg|jpeg|png/;
   const extnameValid = filetypes.test(
     path.extname(file.originalname).toLowerCase()
   );
   const mimetypeValid = filetypes.test(file.mimetype);
 
-  if (extNameValid && mimeTypeValid) return cb(null, true);
-  else cb('Only .jpg and .png files are allowed.');
+  if (extnameValid && mimetypeValid) return cb(null, true);
+  else {
+    req.fileValidationError = 'Forbidden extension';
+    return cb(null, false, req.fileValidationError);
+  }
 }
 
 const upload = multer({
   storage,
   fileFilter: function (req, file, cb) {
-    checkFileType(rile, cb);
+    checkFileType(req, file, cb);
+    console.log(cb);
   },
 });
 
 router.post('/', upload.single('image'), (req, res) => {
+  if (req.fileValidationError) {
+    res.status(422);
+    throw new Error('Allowed file types: .jpg, .jpeg, .png');
+  }
   res.send(`/${req.file.path}`);
 });
 
