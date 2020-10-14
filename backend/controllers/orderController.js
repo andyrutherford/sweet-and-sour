@@ -92,8 +92,21 @@ const markOrderPaid = asyncHandler(async (req, res) => {
 // @access      PRIVATE
 const getMyOrders = asyncHandler(async (req, res) => {
   let orders = await Order.find({ user: req.user._id });
-
   res.json(orders);
 });
 
-export { addOrderItems, getOrderById, markOrderPaid, getMyOrders };
+// @desc        Get all orders
+// @route       GET /api/orders/
+// @access      ADMIN
+const getAllOrders = asyncHandler(async (req, res) => {
+  let orders = await Order.find({});
+  res.json(orders);
+});
+
+export {
+  addOrderItems,
+  getOrderById,
+  markOrderPaid,
+  getMyOrders,
+  getAllOrders,
+};
