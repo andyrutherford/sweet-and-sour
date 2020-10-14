@@ -55,7 +55,6 @@ export const listProductDetails = (id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, updates) => async (dispatch, getState) => {
-  console.log('update');
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,

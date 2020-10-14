@@ -8,7 +8,10 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { listProductDetails, updateProduct } from '../actions/productActions';
-import { PRODUCT_UPDATE_RESET } from '../actions/actionTypes';
+import {
+  PRODUCT_UPDATE_RESET,
+  PRODUCT_DETAILS_RESET,
+} from '../actions/actionTypes';
 
 const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
@@ -57,6 +60,7 @@ const ProductEditPage = ({ match, history }) => {
   useEffect(() => {
     return () => {
       dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch({ type: PRODUCT_DETAILS_RESET });
     };
   }, [dispatch]);
 

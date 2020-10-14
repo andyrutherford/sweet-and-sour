@@ -69,7 +69,6 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access      PRIVATE
 const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-  console.log(req.body);
   if (req.body.price && req.body.price < 0) {
     res.status(422);
     throw new Error('The price cannot be a negative number.');
