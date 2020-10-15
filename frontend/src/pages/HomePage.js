@@ -7,14 +7,15 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProducts } from '../actions/productActions';
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
   const dispatch = useDispatch();
+  const query = match.params.query;
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(query));
+  }, [dispatch, query]);
 
   return (
     <>

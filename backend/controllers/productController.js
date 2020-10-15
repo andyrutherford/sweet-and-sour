@@ -6,7 +6,15 @@ import Product from '../models/productModel.js';
 // @route       GET /api/products
 // @access      PUBLIC
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const query = req.query.query
+    ? {
+        name: {
+          $regex: req.query.query,
+          $options: 'i',
+        },
+      }
+    : {};
+  const products = await Product.find({ ...query });
   res.json(products);
 });
 
