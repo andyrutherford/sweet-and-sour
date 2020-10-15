@@ -22,11 +22,15 @@ import {
   PRODUCT_CREATE_REVIEW_RESET,
 } from './actionTypes';
 
-export const listProducts = (query = '') => async (dispatch) => {
+export const listProducts = (query = '', pageNumber = '') => async (
+  dispatch
+) => {
   dispatch({ type: PRODUCT_LIST_REQUEST });
 
   try {
-    const { data } = await axios.get(`/api/products?query=${query}`);
+    const { data } = await axios.get(
+      `/api/products?query=${query}&pageNumber=${pageNumber}`
+    );
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
