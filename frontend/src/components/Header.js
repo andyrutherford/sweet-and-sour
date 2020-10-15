@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header style={{ width: '100vw' }}>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>

@@ -6,6 +6,7 @@ import {
   deleteProduct,
   createProduct,
   updateProduct,
+  createReview,
 } from '../controllers/productController.js';
 import { adminOnly } from '../middleware/adminMiddleware.js';
 import { protect } from '../middleware/authMiddleware.js';
@@ -15,6 +16,7 @@ const router = express.Router();
 
 router.route('/').get(getProducts);
 router.route('/:id').get(validateId, getProductById);
+router.route('/:id/reviews').post(protect, validateId, createReview);
 
 // Admin routes
 router.route('/').post(protect, adminOnly, createProduct);
