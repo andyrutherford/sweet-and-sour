@@ -44,6 +44,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
+    localStorage.removeItem('basketItems');
     dispatch({ type: BASKET_REMOVE_ALL_ITEMS });
   } catch (error) {
     dispatch({

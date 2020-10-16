@@ -18,6 +18,7 @@ import {
   listProductDetails,
   createProductReview,
 } from '../actions/productActions';
+import formatPrice from '../utils/formatPrice';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../actions/actionTypes';
 
 const ProductPage = ({ history, match }) => {
@@ -98,7 +99,9 @@ const ProductPage = ({ history, match }) => {
                     }`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>
+                  Price: ${formatPrice(product.price)}
+                </ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
                 </ListGroup.Item>
@@ -111,7 +114,7 @@ const ProductPage = ({ history, match }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <strong>${formatPrice(product.price)}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>

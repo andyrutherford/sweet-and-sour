@@ -33,7 +33,7 @@ const OrderPage = ({ match, history }) => {
   const { loading: loadingPay, success: successPay } = orderPay;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+  const { success: successDeliver } = orderDeliver;
 
   if (!loading && !error) {
     order.itemsPrice = formatPrice(
@@ -72,7 +72,7 @@ const OrderPage = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver, userInfo]);
+  }, [dispatch, order, orderId, successPay, successDeliver, userInfo, history]);
 
   // cleanup
   useEffect(() => {
@@ -117,7 +117,7 @@ const OrderPage = ({ match, history }) => {
               </p>
               <p>
                 <strong>Address: </strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}
+                {order.shippingAddress.address}, {order.shippingAddress.city},
                 {order.shippingAddress.postCode},{' '}
                 {order.shippingAddress.country}
               </p>

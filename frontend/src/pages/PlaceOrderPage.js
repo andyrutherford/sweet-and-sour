@@ -10,7 +10,7 @@ import { createOrder } from '../actions/orderActions';
 const PlaceOrderPage = ({ history }) => {
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.basket);
-
+  const { paymentMethod } = basket;
   basket.itemsPrice = formatPrice(
     basket.basketItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -33,6 +33,9 @@ const PlaceOrderPage = ({ history }) => {
   const { order, success, error } = orderCreate;
 
   useEffect(() => {
+    if (!paymentMethod) {
+      history.push('/payment');
+    }
     if (success) {
       history.push(`/order/${order._id}`);
     }
@@ -64,7 +67,7 @@ const PlaceOrderPage = ({ history }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {basket.shippingAddress.address}, {basket.shippingAddress.city}
+                {basket.shippingAddress.address}, {basket.shippingAddress.city},{' '}
                 {basket.shippingAddress.postCode},{' '}
                 {basket.shippingAddress.country}
               </p>
@@ -140,9 +143,11 @@ const PlaceOrderPage = ({ history }) => {
                   <Col>${basket.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
+              {error && (
+                <ListGroup.Item>
+                  <Message variant='danger'>{error}</Message>}
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button
                   type='button'
