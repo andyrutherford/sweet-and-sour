@@ -45,6 +45,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
     localStorage.removeItem('basketItems');
+    localStorage.removeItem('paymentMethod');
     dispatch({ type: BASKET_REMOVE_ALL_ITEMS });
   } catch (error) {
     dispatch({

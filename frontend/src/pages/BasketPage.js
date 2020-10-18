@@ -47,7 +47,7 @@ const BasketPage = ({ match, location, history }) => {
           <ListGroup variant='flush'>
             {basketItems.map((i) => (
               <ListGroup.Item key={i.product}>
-                <Row>
+                <Row className='align-items-center'>
                   <Col md={2}>
                     <Image src={i.image} alt={i.name} fluid rounded />
                   </Col>
