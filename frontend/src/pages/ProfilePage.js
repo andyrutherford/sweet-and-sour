@@ -40,7 +40,7 @@ const ProfilePage = ({ location, history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user.name) {
+      if (!user) {
         dispatch(getUserDetails('profile'));
         dispatch(listUserOrders());
       } else {
