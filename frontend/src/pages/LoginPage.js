@@ -15,9 +15,7 @@ const LoginPage = ({ location, history }) => {
   const { loading, error, userInfo } = userLogin;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const redirect = location.search ? location.search.split('=')[1] : '/';
-
   // If user is logged in, redirect to hom
   useEffect(() => {
     if (userInfo) {
@@ -75,7 +73,7 @@ const LoginPage = ({ location, history }) => {
       <Row className='py-3'>
         <Col>
           New customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/signup'}>
+          <Link to={redirect ? `/signup?redirect=${redirect}` : '/signup'}>
             Sign up
           </Link>
         </Col>

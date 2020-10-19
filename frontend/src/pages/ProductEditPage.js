@@ -73,7 +73,7 @@ const ProductEditPage = ({ match, history }) => {
     setUploading(true);
     imageUpload(formData)
       .then((res) => {
-        setImage(res);
+        setImage(res.url);
         setUploading(false);
       })
       .catch((e) => {

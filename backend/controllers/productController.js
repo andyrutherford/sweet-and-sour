@@ -64,7 +64,8 @@ const createProduct = asyncHandler(async (req, res) => {
     name: 'Sample',
     price: 0,
     user: req.user._id,
-    image: '/images/sample.png',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/v1603097618/sample-product.jpg',
     brand: 'Sample brand',
     category: 'Sample category',
     countInStock: 0,

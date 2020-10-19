@@ -10,15 +10,8 @@ cloudinary.config({
 });
 
 export const uploadImage = (image) => {
-  const cloudinaryOptions = {
-    resource_type: 'raw',
-    folder: process.env.CLOUDINARY_CLOUD_FOLDER || '',
-  };
   return new Promise((resolve, reject) => {
-    cloudinary.v2.uploader.upload(image, cloudinaryOptions, function (
-      error,
-      result
-    ) {
+    cloudinary.v2.uploader.upload(image, function (error, result) {
       if (error) {
         reject(error);
       } else {

@@ -35,7 +35,6 @@ const upload = multer({
   storage,
   fileFilter: function (req, file, cb) {
     checkFileType(req, file, cb);
-    console.log(cb);
   },
 });
 

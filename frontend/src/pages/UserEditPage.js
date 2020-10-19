@@ -25,7 +25,7 @@ const UserEditPage = ({ match }) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
+    if (!user || user._id !== userId) {
       dispatch(getUserDetails(userId));
     } else {
       setName(user.name);

@@ -1,7 +1,8 @@
 const products = [
   {
     name: 'Cupcake',
-    image: '/images/cupcake.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096370/cupcake_rebfs1.jpg',
     description: 'A tasty cupcake',
     brand: 'Johns Bakery',
     category: 'Baked Goods',
@@ -12,7 +13,8 @@ const products = [
   },
   {
     name: 'Ice Cream Drumstick',
-    image: '/images/icecream.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600,ar_1:1,c_fill,g_auto,e_art:hokusai/v1603096368/icecream_bsr3rj.jpg',
     description: 'Strawberry flavored ice cream drumstick',
     brand: 'Blue Bell',
     category: 'Ice cream',
@@ -23,7 +25,8 @@ const products = [
   },
   {
     name: 'Lollipop',
-    image: '/images/lollipop.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600,ar_1:1,c_fill,g_auto,e_art:hokusai/v1603096368/lollipop_ue6dxg.jpg',
     description: 'Lollipop of assorted colors and flavors',
     brand: 'Willy Wonka',
     category: 'Candy',
@@ -34,7 +37,8 @@ const products = [
   },
   {
     name: 'M&Ms',
-    image: '/images/mms.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096368/mms_dshxa6.jpg',
     description: 'Americas favorite chocolate candy (price is per pound)',
     brand: 'Mars',
     category: 'Candy',
@@ -45,7 +49,8 @@ const products = [
   },
   {
     name: 'Apple cinnamon muffin',
-    image: '/images/muffin.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600,ar_1:1,c_fill,g_auto,e_art:hokusai/v1603096368/muffin_zmjlhc.jpg',
     description: 'Tasty apple cinnamon flavored muffin topped with nuts',
     brand: 'Johns Bakery',
     category: 'Baked Goods',
@@ -56,7 +61,8 @@ const products = [
   },
   {
     name: 'Sour Worms',
-    image: '/images/worms.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096367/worms_ycgi48.jpg',
     description: 'Super sour candy worms (price per pound)',
     brand: 'Willy Wonka',
     category: 'Candy',
@@ -67,7 +73,8 @@ const products = [
   },
   {
     name: 'Choco-Chip Cookies',
-    image: '/images/chocolatechipcookies.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096374/chocolatechipcookies_o1lswq.jpg',
     description: 'Just like your momma used to make them',
     brand: 'Johns Bakery',
     category: 'Cookies',
@@ -78,7 +85,8 @@ const products = [
   },
   {
     name: 'Beary Tasty Donut',
-    image: '/images/donut.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096365/donut_nvbrue.jpg',
     description: 'Topped with chocolate and sprinkles',
     brand: 'Johns Baker',
     category: 'Donuts',
@@ -89,7 +97,8 @@ const products = [
   },
   {
     name: 'Heart Cookies',
-    image: '/images/heartcookies.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096368/heartcookies_rfblja.jpg',
     description: 'A powdered sugar outside, with a tangy raspberry center',
     brand: 'Mars',
     category: 'Cookies',
@@ -100,7 +109,8 @@ const products = [
   },
   {
     name: 'Sweet and Sours',
-    image: '/images/sourcandies.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600,ar_1:1,c_fill,g_auto,e_art:hokusai/v1603096373/sourcandies_ag9g0x.jpg',
     description:
       'Our signature product, the perfect mix of sweets and sours (price per pound)',
     brand: 'Sweet and Sour',
@@ -112,7 +122,8 @@ const products = [
   },
   {
     name: 'Rainbow Cakes',
-    image: '/images/rainbowcakes.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096366/rainbowcakes_tkn0mx.jpg',
     description: 'Taste the rainbow',
     brand: 'Johns Bakery',
     category: 'Cakes',
@@ -123,7 +134,8 @@ const products = [
   },
   {
     name: 'Shamrock Cookies',
-    image: '/images/shamrockcookies.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096370/shamrockcookies_xgo4rs.jpg',
     description: 'The luck of the irish is in every bite',
     brand: 'Johns Bakery',
     category: 'Cookies',
@@ -134,7 +146,8 @@ const products = [
   },
   {
     name: 'I Love You Candies',
-    image: '/images/heartcandies.jpg',
+    image:
+      'https://res.cloudinary.com/sweetandsour/image/upload/w_600/v1603096366/heartcandies_htjnxo.jpg',
     description: 'Surprise your valentine with these treats (price per pound)',
     brand: 'Willy Wonka',
     category: 'Candy',

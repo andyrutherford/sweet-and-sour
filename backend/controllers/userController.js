@@ -8,6 +8,15 @@ import generateToken from '../utils/genToken.js';
 // @access      PUBLIC
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
+  if (!email) {
+    res.status(400);
+    throw new Error('An email is required.');
+  }
+  if (!password) {
+    res.status(400);
+    throw new Error('A password is required.');
+  }
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
