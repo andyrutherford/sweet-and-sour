@@ -8,7 +8,7 @@ const config = {
 
 export default async (formData) => {
   try {
-    const { data } = await axios.post('/api/uploads', formData, config);
+    const { data } = await axios.post('/api/uploads/', formData, config);
     return data;
   } catch (error) {
     throw new Error(error.response.data.message);

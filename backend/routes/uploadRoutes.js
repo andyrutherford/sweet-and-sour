@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import multer from 'multer';
+import { uploadImage } from '../controllers/uploadController.js';
 const router = express.Router();
 
 // multer config
@@ -38,12 +39,26 @@ const upload = multer({
   },
 });
 
-router.post('/', upload.single('image'), (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   if (req.fileValidationError) {
     res.status(422);
     throw new Error('Allowed file types: .jpg, .jpeg, .png');
   }
-  res.send(`/${req.file.path}`);
+  if (req.file) {
+    try {
+      const response = await uploadImage(req.file.path);
+      res.status(201).json({
+        status: 'success',
+        url: response.url,
+      });
+    } catch (error) {
+      res.status(400);
+      throw new Error(error.message);
+    }
+  } else {
+    res.status(400);
+    throw new Error('An image file is required.');
+  }
 });
 
 export default router;
