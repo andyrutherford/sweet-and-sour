@@ -29,6 +29,15 @@ const LoginPage = ({ location, history }) => {
   };
 
   const testUserHandler = () => {
+    setEmail('cliff@gmail.com');
+    setPassword('123456');
+
+    setTimeout(() => {
+      dispatch(login('cliff@gmail.com', '123456'));
+    }, 1000);
+  };
+
+  const testAdminHandler = () => {
     setEmail('sherry@gmail.com');
     setPassword('123456');
 
@@ -43,6 +52,9 @@ const LoginPage = ({ location, history }) => {
         Log in{' '}
         <Button variant='primary' onClick={testUserHandler}>
           Test user
+        </Button>
+        <Button variant='primary' className='ml-2' onClick={testAdminHandler}>
+          Test admin
         </Button>
       </h1>
       {error && <Message variant='danger'>{error}</Message>}
