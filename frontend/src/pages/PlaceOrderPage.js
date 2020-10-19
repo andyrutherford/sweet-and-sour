@@ -103,7 +103,7 @@ const PlaceOrderPage = ({ history }) => {
                         </Col>
                         <Col md={4}>
                           {item.quantity} × ${item.price} = $
-                          {item.quantity * item.price}
+                          {formatPrice(item.quantity * item.price)}
                         </Col>
                       </Row>
                     </ListGroup.Item>

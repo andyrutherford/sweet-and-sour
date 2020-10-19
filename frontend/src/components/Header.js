@@ -90,7 +90,6 @@ const Header = () => {
             <Nav className='ml-auto'>
               <LinkContainer to='/basket'>
                 <Nav.Link>
-                  {/* <i className='fas fa-shopping-basket'></i> Basket */}
                   <NavLink basket='true'>Basket</NavLink>
                 </Nav.Link>
               </LinkContainer>
