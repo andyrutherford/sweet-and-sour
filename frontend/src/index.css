@@ -1,6 +1,12 @@
 main {
-  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 56px);
   width: 100vw;
+}
+
+footer {
+  margin-top: auto;
 }
 
 h1 {

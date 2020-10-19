@@ -58,8 +58,8 @@ const App = () => {
           <Route path='/admin/products/:id/edit' component={ProductEditPage} />
           <Route path='/admin/orders/' exact component={OrderListPage} />
         </Container>
+        <Footer />
       </main>
-      <Footer />
     </Router>
   );
 };

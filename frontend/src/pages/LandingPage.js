@@ -44,7 +44,7 @@ const LandingPage = () => {
         <Link className='btn btn-primary my-3' to='/'>
           Browse <i className='fas fa-angle-right'></i>
         </Link>{' '}
-        <Link className='btn btn-outline-secondary my-3' to='/log-in'>
+        <Link className='btn btn-outline-secondary my-3' to='/login'>
           Log in <i className='fas fa-sign-in-alt'></i>
         </Link>
       </div>
